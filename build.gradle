@@ -34,7 +34,7 @@ task fatJar(type: Jar) {
 	fatJar.dependsOn buildInfo
 	manifest {
 		attributes(
-			'Main-Class': 'org.ranjith.util.xml.merge.XMLMergeProcessor',
+			'Main-Class': 'org.ranjith.util.xml.merge.Driver',
 			'Branch': tasks.buildInfo.branch,
 			'Revision': tasks.buildInfo.revision,
 			'Version': tasks.buildInfo.version
@@ -46,5 +46,7 @@ task fatJar(type: Jar) {
 }
 
 dependencies {
-	
+	compile ('commons-lang:commons-lang:2.6')
+	compile ('commons-io:commons-io:2.4')
+	compile ('javax.xml.parsers:jaxp-api:1.4.5')
 }
