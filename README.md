@@ -32,7 +32,7 @@ You have two ways in using the xml-merger services, by specifying below paramete
 * **destination xml file path** - Absolute path to the destination xml file, a new file would be created after successful merge operation.
 * **comma seperated leaf nodes** - Comma seperated leaf nodes, where no children comparison would be applied if a leaf node is reached.
 
-###1. Executing the jar through CLI
+### 1. Executing the jar through CLI
 
 Run the executable from the command prompt from windows or **nux shell.
 
@@ -42,7 +42,7 @@ Run the executable from the command prompt from windows or **nux shell.
 
 Above shall output the loggers on to the console
 
-###2. Invoking the API in your java application
+### 2. Invoking the API in your java application
 
 Include xml-merger-all-X.X.X.jar in your java application's classpath and use **XMLMergeProcessor**'s **process** method to get the job done, this is the same processor invoked from a driver class in the CLI approach.
 
