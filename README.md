@@ -27,6 +27,6 @@ Above commands shall generate **xml-merger-all-X.X.X.jar** in the <xml-merger-ro
 ## Usage
 This section will be updated soon...
 
-This is my first contribution towards freelancing utilities, feel free to download, try, modify, play around to suit your needs.
+This work is my contribution towards freelancing utilities, feel free to download, try, modify, play around to suit your needs.
 
 For any suggestions or questions, please reach me at **ranjzith@gmail.com**.
