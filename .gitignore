@@ -27,3 +27,4 @@ xml-merger/out/*
 .idea/
 xml-merger.iml
 
+/.metadata/
