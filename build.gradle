@@ -1,0 +1,50 @@
+allprojects {
+
+	version = '1.0.0'
+
+	apply plugin: 'java'
+
+	group = 'org.ranjith.util'
+
+	description = "XML Merger"
+
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+	tasks.withType(JavaCompile) {
+		options.encoding = 'UTF-8'
+	}
+	
+	repositories {
+		mavenCentral()
+	}
+	
+	task buildInfo {
+		def cmd = "git rev-parse --short HEAD"
+		def proc = cmd.execute()
+		ext.revision = proc.text.trim()
+		cmd = "git rev-parse --abbrev-ref HEAD"
+		proc = cmd.execute()
+		ext.branch = proc.text.trim()
+		ext.version = '1.0.0'
+	}
+}
+
+task fatJar(type: Jar) {
+	fatJar.dependsOn buildInfo
+	manifest {
+		attributes(
+			'Main-Class': 'org.ranjith.util.xml.merge.XMLMergeProcessor',
+			'Branch': tasks.buildInfo.branch,
+			'Revision': tasks.buildInfo.revision,
+			'Version': tasks.buildInfo.version
+		)
+	}
+	baseName = project.name + '-all'
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
+
+dependencies {
+	
+}

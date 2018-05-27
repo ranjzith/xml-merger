@@ -1,0 +1,29 @@
+# Ignoring Eclipse IDE specific files
+.classpath
+.project
+.settings/*
+xml-merger/.classpath
+xml-merger/.project
+xml-merger/.settings/*
+
+# Ignoring generated directories`
+bin/*
+build/*
+xml-merger/bin/*
+xml-merger/bin/*
+xml-merger/out/*
+xml-merger/out/*
+
+
+# Ignoring gradle directories
+.gradle/*
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+/.gradle/
+/build/
+
+#Ignoring Intelij file
+.idea/
+xml-merger.iml
+
