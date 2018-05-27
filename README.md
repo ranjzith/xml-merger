@@ -4,7 +4,7 @@ XML merger is a merge utility provided as an executable fat/uber java archive wi
 
 This README file explains how to generate the executable and usage of the xml-merger services.
 
-##Prerequisites
+## Prerequisites
 * Java 1.8 or higher
 
 ## Generating the fat/uber jar
@@ -24,9 +24,9 @@ To clear the old builds before generating the executable run the above with grad
 
 Above commands shall generate **xml-merger-all-X.X.X.jar** in the <xml-merger-root>/build/libs directory
 
-##Usage
+## Usage
 This section will be updated soon...
 
 This is my first contribution towards freelancing utilities, feel free to download, try, modify, play around to suit your needs.
 
-For any suggestions or question, please reach me at **ranjzith@gmail.com**.
+For any suggestions or questions, please reach me at **ranjzith@gmail.com**.
