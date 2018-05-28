@@ -81,10 +81,9 @@ public class XMLMergeProcessor {
             Document destXml = builder.parse(destFilePath);
 
             Element srcRoot = sourceXml.getDocumentElement();
-            Element destRoot = destXml.getDocumentElement();
 
             StringBuilder currentNodePath = new StringBuilder("");
-            Node mergedXml = merge(srcRoot, destRoot, destXml, currentNodePath);
+            Node mergedXml = merge(srcRoot, destXml, currentNodePath);
 
             // write to xml file
             this.writeToXml(mergedXml, destFilePath);
@@ -95,7 +94,7 @@ public class XMLMergeProcessor {
 
     }
 
-    private Node merge(Node srcRoot, Node destRoot, Document destXml, StringBuilder currentXPath)
+    private Node merge(Node srcRoot, Document destXml, StringBuilder currentXPath)
             throws XPathExpressionException {
         if (srcRoot != null && srcRoot.getLocalName() != null) {
             // form the xpath
@@ -115,30 +114,33 @@ public class XMLMergeProcessor {
             XPathExpression xPathExpr = xPath.compile("count(" + currentNodePath + ") > 0");
             Boolean elementExists = (Boolean) xPathExpr.evaluate(destXml, XPathConstants.BOOLEAN);
 
-            // if xpath exists in dest, recursively call for sub nodes
-            if (elementExists) {
-                System.out.println("[INFO]xpath exists in dest, making recursive call for sub nodes");
-                NodeList nodes = srcRoot.getChildNodes();
-                if (nodes != null && nodes.getLength() > 0) {
-                    for (int i = 0; i < nodes.getLength(); i++) {
-                        Node node = nodes.item(i);
-                        merge(node, destRoot, destXml, currentNodePath);
+            // skip comparison on leaf node children
+            if(!elementExists || !leafNodes.contains(srcRoot.getLocalName())) {
+                // if xpath exists in dest, recursively call for sub nodes
+                if (elementExists) {
+                    System.out.println("[INFO]xpath exists in dest, making recursive call for sub nodes");
+                    NodeList nodes = srcRoot.getChildNodes();
+                    if (nodes != null && nodes.getLength() > 0) {
+                        for (int i = 0; i < nodes.getLength(); i++) {
+                            Node node = nodes.item(i);
+                            merge(node, destXml, currentNodePath);
+                        }
                     }
+                } else {
+                    System.out.println("[INFO]xpath does not exist, this node will be added:" + srcRoot.getLocalName());
+                    // else add the element to the destination node
+                    // Create a duplicate node
+                    Node newNode = srcRoot.cloneNode(true);
+                    // Transfer ownership of the new node into the destination document
+                    destXml.adoptNode(newNode);
+                    if (StringUtils.isEmpty(parentNodePath)) {
+                        parentNodePath = "/";
+                    }
+                    xPathExpr = xPath.compile(parentNodePath);
+                    // evaluate expression result on XML document
+                    Node node = (Node) xPathExpr.evaluate(destXml, XPathConstants.NODE);
+                    node.appendChild(newNode);
                 }
-            } else {
-                System.out.println("[INFO]xpath does not exist, this node will be added:" + srcRoot.getLocalName());
-                // else add the element to the destination node
-                // Create a duplicate node
-                Node newNode = srcRoot.cloneNode(true);
-                // Transfer ownership of the new node into the destination document
-                destXml.adoptNode(newNode);
-                if (StringUtils.isEmpty(parentNodePath)) {
-                    parentNodePath = "/";
-                }
-                xPathExpr = xPath.compile(parentNodePath);
-                // evaluate expression result on XML document
-                Node node = (Node) xPathExpr.evaluate(destXml, XPathConstants.NODE);
-                node.appendChild(newNode);
             }
         }
         return destXml;

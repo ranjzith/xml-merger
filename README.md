@@ -30,7 +30,7 @@ You have two ways in using the xml-merger services, by specifying below paramete
 * **source xml file path** - File 1, Absolute path to the source xml file
 * **source xml file path** - File 2, Absolute path to the source xml file
 * **destination xml file path** - Absolute path to the destination xml file, a new file would be created after successful merge operation.
-* **comma seperated leaf nodes** - Comma seperated leaf nodes, where no children comparison would be applied if a leaf node is reached.
+* **comma seperated leaf nodes** - (Optional parameter) Comma seperated leaf nodes, where no children comparison would be applied if a leaf node is reached.
 
 ### 1. Executing the jar through CLI
 
@@ -56,6 +56,46 @@ Example:
     args[3] = "product";
     System.out.println(processor.process(args));
 
+**Sample Use Case:**
+
+**file1:**
+
+    <category>
+      <products id="1">
+        <product id="1">
+          <name>mobile</name>
+        </product>
+      </products>
+    </category>
+
+**file2:**
+
+    <category>
+      <products id="1">
+        <product id="2">
+          <name>laptop</name>
+        </product>
+      </products>
+    </category>
+
+On invoking xml-merger as below,
+
+    java -jar xml-merger-all-1.0.0.jar fil1.xml file2.xml dest.xml product
+
+Below xml would be generated in dest.xml
+
+**output:**
+
+    <category>
+      <products id="1">
+        <product id="1">
+          <name>mobile</name>
+        </product>
+        <product id="2">
+          <name>laptop</name>
+        </product>
+      </products>
+    </category>
 
 This work is my contribution towards freelancing utilities, feel free to download, try, modify, play around to suit your needs.
 
