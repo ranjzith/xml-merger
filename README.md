@@ -97,6 +97,6 @@ Below xml would be generated in dest.xml
       </products>
     </category>
 
-This work is my contribution towards freelancing utilities, feel free to download, try, modify, play around to suit your needs.
+This work is my contribution towards freelancing utilities and this is not a reflection of myself, honestly the code needs a lot of cleanup and improvements (it's a very basic approach), feel free to download, try, modify, play around to suit your needs.
 
 For any suggestions or questions, please reach me at **ranjzith@gmail.com**.
